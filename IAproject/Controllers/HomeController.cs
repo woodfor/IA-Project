@@ -26,7 +26,5 @@ namespace IAproject.Controllers
 
             return View();
         }
-
-       
     }
 }
