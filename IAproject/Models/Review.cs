@@ -18,7 +18,5 @@ namespace IAproject.Models
         public string ReviewText { get; set; }
         public decimal Stars { get; set; }
         public string MenuID { get; set; }
-    
-        public virtual Menu Menu { get; set; }
     }
 }

@@ -8,17 +8,14 @@
         <EntityTypeShape EntityType="Model.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.AspNetRole" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.AspNetUserLogin" Width="1.5" PointX="6.875" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.AspNetUser" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Menu" Width="1.5" PointX="2.625" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.PersonalMenu" Width="1.5" PointX="5.125" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Review" Width="1.5" PointX="6.625" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Menu" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PersonalMenu" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Review" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
         <AssociationConnector Association="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="Model.AspNetUserRoles" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.MenuPersonalMenu" />
-        <AssociationConnector Association="Model.AspNetUserPersonalMenu" />
-        <AssociationConnector Association="Model.MenuReview" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
