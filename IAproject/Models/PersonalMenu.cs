@@ -17,5 +17,8 @@ namespace IAproject.Models
         public string PersonId { get; set; }
         public string MenuID { get; set; }
         public string Id { get; set; }
+    
+        public virtual Menu Menu { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

@@ -14,10 +14,22 @@ namespace IAproject.Models
     
     public partial class Menu
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Menu()
+        {
+            this.PersonalMenus = new HashSet<PersonalMenu>();
+            this.Reviews = new HashSet<Review>();
+        }
+    
         public string MenuID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string MenuPhoto { get; set; }
         public decimal Carlorie { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PersonalMenu> PersonalMenus { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

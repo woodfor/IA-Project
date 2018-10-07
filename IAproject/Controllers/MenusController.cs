@@ -88,14 +88,24 @@ namespace IAproject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MenuID,Name,Description,MenuPhoto,Carlorie")] Menu menu)
+        public ActionResult Edit([Bind(Include = "Name,Description,MenuPhoto,Carlorie")] Menu menu, HttpPostedFileBase postedFile)
         {
+            ModelState.Clear();
+            var myUniqueFileName = string.Format(@"{0}", Guid.NewGuid());
+            menu.MenuPhoto = myUniqueFileName;
+            TryValidateModel(menu);
             if (ModelState.IsValid)
             {
-                db.Entry(menu).State = EntityState.Modified;
+                string serverPath = Server.MapPath("~/Uploads/");
+                string fileExtension = Path.GetExtension(postedFile.FileName);
+                string filePath = menu + fileExtension;
+                menu.MenuPhoto = filePath;
+                postedFile.SaveAs(serverPath + menu.MenuPhoto);
+                db.Menus.Add(menu);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(menu);
         }
 
