@@ -1,5 +1,9 @@
-﻿
+﻿@using IAproject.Models
+@model Calculation
+
 @{
+    /**/
+
     ViewBag.Title = "Home Page";
 }
 
@@ -20,6 +24,11 @@
         .suggest {
             text-align: center
         }
+
+        .form-horizontal {
+            text-align: left
+        }
+        }
     </style>
 </head>
 
@@ -29,52 +38,99 @@
 
 </div>
 
-<div class="Due">
-    <h1>Calculate your carlories</h1>
-    <iframe src="https://www.calculator.net/calorie-calculator.html?ctype=metric&cage=23&csex=m&cheightfeet=5&cheightinch=10&cpound=160&cheightmeter=183&ckg=86&cactivity=1.2&printit=0&x=104&y=29" height="600" width="650"></iframe>
-    <p><a href="https://www.calculator.net/calorie-calculator.html?ctype=metric&cage=23&csex=m&cheightfeet=5&cheightinch=10&cpound=160&cheightmeter=183&ckg=86&cactivity=1.2&printit=0&x=104&y=29" target="iframe_a">Calorie Calculator</a></p>
-</div>
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
 
-<div class="row">
-    <div class="col-4">
-        <textarea></textarea>
-    </div>
-</div>
+    @Html.AntiForgeryToken()
 
+    <form class="form-horizontal" action="/action_page.php">
+        <h2> Calculate your calories </h2>
+        <br />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-<div class="jumbotron">
-    <h2>Your suggested menu</h2>
-    <img src="/Image/Bagel.jpg" alt="buger" width="500" height="500">
-    <p>Total Calories: 1,028</p>
-</div>
+        <div class="form-group">
 
-
-<div class="jumbotron">
-    <div class="abc">
-        <h2>Comments on this menu</h2>
-        <p>
-
-            <textarea rows="4" cols="50"> Write something</textarea>
-            <br>
-            <input type="checkbox" name="likemenu" value="like"> like the menu?<br>
-            <button type="button">Submit &raquo;</button>
-
-
-        </p>
-
-    </div>
-    <!--
-        <div class="col-md-4">
-            <h2>Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+            <div class="col-md-10">
+                @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+            </div>
         </div>
-        <div class="col-md-4">
-            <h2>Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.LabelFor(model => model.PersonalGender, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.DropDownListFor(model => model.PersonalGender, new SelectList(Enum.GetValues(typeof(Gender))), "Select Gender")
+                @Html.ValidationMessageFor(model => model.PersonalGender, "", new { @class = "text-danger" })
+            </div>
         </div>
-        -->
 
-</div>
+        <div class="form-group">
 
+            <div class="col-md-10">
+                @Html.LabelFor(model => model.Weight, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.Weight, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.LabelFor(model => model.Height, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.Height, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Height, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.LabelFor(model => model.Activity, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.DropDownListFor(model => model.Activity, new SelectList(Enum.GetValues(typeof(Activity))), "Select Activity")
+                @Html.ValidationMessageFor(model => model.Activity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Calculation" class="btn btn-default" />
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <hr />
+                <ul>
+                    @foreach (var cal in ViewData["Calculation"] as IList<string>)
+                    {
+                        <li>
+                            @cal
+                        </li>
+                    }
+                </ul>
+            </div>
+
+        </div>
+
+    </form>
+}
+
+@using (Html.BeginForm("ProvideSuggest", "SeeMenu", FormMethod.Post))
+{
+
+    <div class="col-md-10">
+        <h2>Type in the colaries and see the suggested menu.</h2>
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.LabelFor(model => model.CalResult, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.CalResult, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CalResult, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Calculation" class="btn btn-default" />
+    </div>
+}
