@@ -13,7 +13,7 @@ namespace IAproject.Controllers
 {
     public class SeeMenuController : Controller
     {
-        private MenuPhootEntities db = new MenuPhootEntities();
+        private MenuNewestEntities db = new MenuNewestEntities();
         public ActionResult ProvideSuggest([Bind(Include = "CalResult")] Calculation cal)
         {
             List<Menu> menulist = new List<Menu>();
@@ -39,7 +39,7 @@ namespace IAproject.Controllers
         }
 
         // GET: SeeMenu/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -79,7 +79,7 @@ namespace IAproject.Controllers
         }
 
         // GET: SeeMenu/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -110,7 +110,7 @@ namespace IAproject.Controllers
         }
 
         // GET: SeeMenu/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -127,7 +127,7 @@ namespace IAproject.Controllers
         // POST: SeeMenu/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int? id)
         {
             Menu menu = db.Menus.Find(id);
             db.Menus.Remove(menu);

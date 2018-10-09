@@ -14,10 +14,10 @@ namespace IAproject.Models
     
     public partial class Review
     {
-        public string ReviewNum { get; set; }
+        public int ReviewNum { get; set; }
         public string ReviewText { get; set; }
         public decimal Stars { get; set; }
-        public string MenuID { get; set; }
+        public int MenuID { get; set; }
     
         public virtual Menu Menu { get; set; }
     }

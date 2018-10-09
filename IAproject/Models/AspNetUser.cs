@@ -20,7 +20,7 @@ namespace IAproject.Models
             this.AspNetUserClaims = new HashSet<AspNetUserClaim>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
             this.AspNetRoles = new HashSet<AspNetRole>();
-            this.PersonalMenus = new HashSet<PersonalMenu>();
+            this.Menus = new HashSet<Menu>();
         }
     
         public string Id { get; set; }
@@ -45,6 +45,6 @@ namespace IAproject.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PersonalMenu> PersonalMenus { get; set; }
+        public virtual ICollection<Menu> Menus { get; set; }
     }
 }

@@ -206,53 +206,51 @@
     <Compile Include="Controllers\CalculationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\MenusController.cs" />
+    <Compile Include="Controllers\MenusNewestController.cs" />
+    <Compile Include="Controllers\MenustestController.cs" />
     <Compile Include="Controllers\SeeMenuController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AspNetRole.cs">
-      <DependentUpon>Model1Menu.tt</DependentUpon>
+      <DependentUpon>NewestModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUser.cs">
-      <DependentUpon>Model1Menu.tt</DependentUpon>
+      <DependentUpon>NewestModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUserClaim.cs">
-      <DependentUpon>Model1Menu.tt</DependentUpon>
+      <DependentUpon>NewestModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUserLogin.cs">
-      <DependentUpon>Model1Menu.tt</DependentUpon>
+      <DependentUpon>NewestModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\C__MigrationHistory.cs">
-      <DependentUpon>Model1Menu.tt</DependentUpon>
+      <DependentUpon>NewestModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Menu.cs">
-      <DependentUpon>Model1Menu.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Model1Menu.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1Menu.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Model1Menu.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1Menu.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Model1Menu.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1Menu.edmx</DependentUpon>
+      <DependentUpon>NewestModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Calculation.cs" />
-    <Compile Include="Models\PersonalMenu.cs">
-      <DependentUpon>Model1Menu.tt</DependentUpon>
+    <Compile Include="Models\NewestModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NewestModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NewestModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NewestModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NewestModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NewestModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Review.cs">
-      <DependentUpon>Model1Menu.tt</DependentUpon>
+      <DependentUpon>NewestModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SeeMenusModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -275,16 +273,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\Model1Menu.Context.tt">
+    <Content Include="Models\NewestModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1Menu.edmx</DependentUpon>
-      <LastGenOutput>Model1Menu.Context.cs</LastGenOutput>
+      <DependentUpon>NewestModel.edmx</DependentUpon>
+      <LastGenOutput>NewestModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Model1Menu.edmx.sql" />
-    <Content Include="Models\Model1Menu.tt">
+    <Content Include="Models\NewestModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1Menu.edmx</DependentUpon>
-      <LastGenOutput>Model1Menu.cs</LastGenOutput>
+      <DependentUpon>NewestModel.edmx</DependentUpon>
+      <LastGenOutput>NewestModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
@@ -297,12 +294,12 @@
     <Content Include="Contents\bootstrap-datepicker3.css.map" />
     <Content Include="Contents\bootstrap-datepicker.standalone.css.map" />
     <Content Include="Contents\bootstrap-datepicker.css.map" />
-    <EntityDeploy Include="Models\Model1Menu.edmx">
+    <EntityDeploy Include="Models\NewestModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1Menu.Designer.cs</LastGenOutput>
+      <LastGenOutput>NewestModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\Model1Menu.edmx.diagram">
-      <DependentUpon>Model1Menu.edmx</DependentUpon>
+    <Content Include="Models\NewestModel.edmx.diagram">
+      <DependentUpon>NewestModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -443,11 +440,17 @@
     <Content Include="Views\SeeMenu\Details.cshtml" />
     <Content Include="Views\SeeMenu\Edit.cshtml" />
     <Content Include="Views\SeeMenu\ProvideSuggest.cshtml" />
+    <Content Include="Views\MenusNewest\Create.cshtml" />
+    <Content Include="Views\MenusNewest\Delete.cshtml" />
+    <Content Include="Views\MenusNewest\Details.cshtml" />
+    <Content Include="Views\MenusNewest\Edit.cshtml" />
+    <Content Include="Views\MenusNewest\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Uploads\" />
     <Folder Include="Views\Calculation\" />
+    <Folder Include="Views\Menustest\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

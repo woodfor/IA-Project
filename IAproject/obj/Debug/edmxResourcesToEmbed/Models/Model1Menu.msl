@@ -2,8 +2,8 @@
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="MenuPhootEntities">
     <EntitySetMapping Name="C__MigrationHistory">
-      <EntityTypeMapping TypeName="Model.C__MigrationHistory">
-        <MappingFragment StoreEntitySet="__MigrationHistory">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.C__MigrationHistory)">
+        <MappingFragment StoreEntitySet="C__MigrationHistory">
           <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
           <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
           <ScalarProperty Name="Model" ColumnName="Model" />
@@ -12,7 +12,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetRoles">
-      <EntityTypeMapping TypeName="Model.AspNetRole">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.AspNetRole)">
         <MappingFragment StoreEntitySet="AspNetRoles">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -20,7 +20,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetUserClaims">
-      <EntityTypeMapping TypeName="Model.AspNetUserClaim">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.AspNetUserClaim)">
         <MappingFragment StoreEntitySet="AspNetUserClaims">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -30,7 +30,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetUserLogins">
-      <EntityTypeMapping TypeName="Model.AspNetUserLogin">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.AspNetUserLogin)">
         <MappingFragment StoreEntitySet="AspNetUserLogins">
           <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
           <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
@@ -39,7 +39,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetUsers">
-      <EntityTypeMapping TypeName="Model.AspNetUser">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.AspNetUser)">
         <MappingFragment StoreEntitySet="AspNetUsers">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Email" ColumnName="Email" />
@@ -59,8 +59,8 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Menus">
-      <EntityTypeMapping TypeName="Model.Menu">
-        <MappingFragment StoreEntitySet="Menu">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Menu)">
+        <MappingFragment StoreEntitySet="Menus">
           <ScalarProperty Name="MenuID" ColumnName="MenuID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Description" ColumnName="Description" />
@@ -70,8 +70,8 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="PersonalMenus">
-      <EntityTypeMapping TypeName="Model.PersonalMenu">
-        <MappingFragment StoreEntitySet="PersonalMenu">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.PersonalMenu)">
+        <MappingFragment StoreEntitySet="PersonalMenus">
           <ScalarProperty Name="PersonId" ColumnName="PersonId" />
           <ScalarProperty Name="MenuID" ColumnName="MenuID" />
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -79,8 +79,8 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Reviews">
-      <EntityTypeMapping TypeName="Model.Review">
-        <MappingFragment StoreEntitySet="Review">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Review)">
+        <MappingFragment StoreEntitySet="Reviews">
           <ScalarProperty Name="ReviewNum" ColumnName="ReviewNum" />
           <ScalarProperty Name="ReviewText" ColumnName="ReviewText" />
           <ScalarProperty Name="Stars" ColumnName="Stars" />
@@ -90,10 +90,10 @@
     </EntitySetMapping>
     <AssociationSetMapping Name="AspNetUserRoles" TypeName="Model.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
       <EndProperty Name="AspNetRoles">
-        <ScalarProperty Name="Id" ColumnName="RoleId" />
+        <ScalarProperty Name="Id" ColumnName="AspNetRoles_Id" />
       </EndProperty>
       <EndProperty Name="AspNetUsers">
-        <ScalarProperty Name="Id" ColumnName="UserId" />
+        <ScalarProperty Name="Id" ColumnName="AspNetUsers_Id" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

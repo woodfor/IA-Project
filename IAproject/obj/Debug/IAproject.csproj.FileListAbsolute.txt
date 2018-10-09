@@ -477,7 +477,6 @@ J:\IA-Project\IAproject\bin\Microsoft.AI.DependencyCollector.xml
 J:\IA-Project\IAproject\bin\Microsoft.AI.WindowsServer.xml
 J:\IA-Project\IAproject\bin\Microsoft.AI.Web.xml
 J:\IA-Project\IAproject\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-J:\IA-Project\IAproject\obj\Debug\IAproject.csprojAssemblyReference.cache
 J:\IA-Project\IAproject\obj\Debug\IAproject.csproj.CoreCompileInputs.cache
 J:\IA-Project\IAproject\obj\Debug\IAproject.csproj.CopyComplete
 J:\IA-Project\IAproject\obj\Debug\IAproject.dll
