@@ -11,10 +11,14 @@ namespace IAproject.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
+
     public partial class Review
     {
         public int ReviewNum { get; set; }
+        [Required]
+        [AllowHtml]
         public string ReviewText { get; set; }
         public decimal Stars { get; set; }
         public int MenuID { get; set; }

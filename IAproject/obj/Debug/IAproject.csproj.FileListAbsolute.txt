@@ -481,3 +481,4 @@ J:\IA-Project\IAproject\obj\Debug\IAproject.csproj.CoreCompileInputs.cache
 J:\IA-Project\IAproject\obj\Debug\IAproject.csproj.CopyComplete
 J:\IA-Project\IAproject\obj\Debug\IAproject.dll
 J:\IA-Project\IAproject\obj\Debug\IAproject.pdb
+J:\IA-Project\IAproject\obj\Debug\IAproject.csprojAssemblyReference.cache

@@ -171,8 +171,6 @@ namespace IAproject.Controllers
                     }
 
 
-
-
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);

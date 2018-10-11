@@ -37,6 +37,7 @@
         @Html.LabelFor(m => m.Birthday, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Birthday, new { @class = "form-control", @id = "datepicker" })
+           
         </div>
     </div>
     @Scripts.Render("~/bundles/jquery")
@@ -44,7 +45,10 @@
 
     <script src="~/Scripts/bootstrap-datepicker.js"></script>
     <script>
-        $('#datepicker').datepicker({ format: 'dd/mm/yyyy' });
+        $('#datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            startDate: '+1d'
+        });
 
     </script>
 

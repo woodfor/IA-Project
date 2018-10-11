@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -16,19 +17,36 @@ namespace IAproject.Controllers
         private MenuNewestEntities db = new MenuNewestEntities();
         public ActionResult ProvideSuggest([Bind(Include = "CalResult")] Calculation cal)
         {
-            List<Menu> menulist = new List<Menu>();
-            try
+            
+            if (cal.CalResult == 0)
             {
-                int Value = Convert.ToInt32(cal.CalResult);
-                menulist = db.Menus.Where(x => (Value-1000<x.Carlorie && x.Carlorie<=Value) || cal.CalResult == 0).ToList();
                 
+                return RedirectToAction("Index", "Home");
+                              
             }
-            catch (FormatException)
+            else
             {
-                Console.WriteLine("{0} is not correct", cal.CalResult);
-            }
+                
+                List<Menu> menulist = new List<Menu>();
+                try
+                {
+                    int Value = Convert.ToInt32(cal.CalResult);
+                    menulist = db.Menus.Where(x =>  Value > 0 && (Value - 500 < x.Carlorie && x.Carlorie <= Value)).ToList();
 
-            return View(menulist);
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("{0} is not correct", cal.CalResult);
+                }
+
+                return View(menulist);
+            }
+            
+        }
+
+        public ActionResult RedirToCreate()
+        {
+            return RedirectToAction("Create","SeeMenu");
         }
        
 
@@ -50,10 +68,11 @@ namespace IAproject.Controllers
             {
                 return HttpNotFound();
             }
-            return View(menu);
+            return RedirectToAction("Create", "Reviews", menu);
         }
-
         
+
+
 
         // GET: SeeMenu/Create
         public ActionResult Create()
@@ -66,13 +85,22 @@ namespace IAproject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MenuID,Name,Description,MenuPhoto,Carlorie")] Menu menu)
+        public ActionResult Create([Bind(Include = "MenuID,Name,Description,MenuPhoto,Carlorie")] Menu menu, HttpPostedFileBase postedFile)
         {
+            ModelState.Clear();
+            var myUniqueFileName = string.Format(@"{0}", Guid.NewGuid());
+            menu.MenuPhoto = myUniqueFileName;
+            TryValidateModel(menu);
             if (ModelState.IsValid)
             {
+                string serverPath = Server.MapPath("~/Uploads/");
+                string fileExtension = Path.GetExtension(postedFile.FileName);
+                string filePath = menu + fileExtension;
+                menu.MenuPhoto = filePath;
+                postedFile.SaveAs(serverPath + menu.MenuPhoto);
                 db.Menus.Add(menu);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ProvideSuggest");
             }
 
             return View(menu);
