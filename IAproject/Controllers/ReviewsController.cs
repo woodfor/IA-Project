@@ -38,10 +38,34 @@ namespace IAproject.Controllers
 
         public ActionResult Create(Menu menu)
         {
-            Review review = new Review();
-            review.Menu = menu;
-            ViewBag.test = review.ReviewText;
-            return View(review);
+            List<string> menuview = new List<string>();
+            menuview.Add("Name " + menu.Name);
+            menuview.Add("Carlorie " + menu.Carlorie+"");
+            menuview.Add("Description " + menu.Description);
+            ViewData["menuview"] = menuview;
+            ViewBag.viewphoto = "~/Uploads/" + menu.MenuPhoto;
+            List<Review> reviewlist = new List<Review>();
+            reviewlist = db.Reviews.Where(x => x.MenuID == menu.MenuID).ToList();
+            foreach (var tmp in reviewlist)
+            {
+                tmp.Menu = menu;
+            }
+            
+            return View(reviewlist);
+        }
+
+        public ActionResult AddReview([Bind(Include = "ReviewText")] Review review)
+        {
+            ModelState.Clear();
+            TryValidateModel(review);
+            if (ModelState.IsValid)
+            {
+                
+                db.Reviews.Add(review);
+                db.SaveChanges();
+                return RedirectToAction("ProvideSuggest","SeeMenu");
+            }
+            return RedirectToAction("ProvideSuggest", "SeeMenu");
         }
 
 

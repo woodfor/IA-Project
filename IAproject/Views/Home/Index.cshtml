@@ -17,14 +17,6 @@
             text-align: center
         }
 
-        .abc {
-            text-align: center
-        }
-
-        .suggest {
-            text-align: center
-        }
-
         .form-horizontal {
             text-align: left
         }
@@ -32,20 +24,30 @@
     </style>
 </head>
 
-<div class="jumbotron">
-    <h1>Fire my calories</h1>
-    <img src="/Image/due.jpg" alt="Due" width="1000" height="600">
+
+<div>
+    <img srcset="
+             /Image/due320 480w,
+             /Image/due640.jpg 650w,
+              /Image/due640.jpg 800w"
+         sizes="(max-width: 320px) 280px,
+            (max-width: 650px) 440px,
+         (max-width: 600px) 800ppx
+            "
+         src="/Image/due640.jpg" alt="Elva dressed as a fairy" style="width:auto;">
+
 
 </div>
-
+<hr />
+<h2> Calculate your calories </h2>
+<br />
 @using (Html.BeginForm("Index", "Home", FormMethod.Post))
 {
 
     @Html.AntiForgeryToken()
 
     <form class="form-horizontal" action="/action_page.php">
-        <h2> Calculate your calories </h2>
-        <br />
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-group">
@@ -134,5 +136,5 @@
         <input type="submit" value="See Suggest !" class="btn btn-default" />
     </div>
 
-   
+
 }

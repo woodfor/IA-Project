@@ -9,55 +9,46 @@
 
 
 
-    <table class="table">
-        <thead>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Menu name</th>
+            <th>Menu Photo</th>
+            <th>Calorie</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
             <tr>
-                <th>Menu name</th>
-                <th>Menu Photo</th>
-                <th>Calorie</th>
+                <td colspan="3" style="color:red">
+                    No Mach Any Menus
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @if (Model.Count() == 0)
+        }
+        else
+        {
+            foreach (var item in Model)
             {
                 <tr>
-                    <td colspan="3" style="color:red">
-                        No Mach Any Menus
+                    <td>@item.Name</td>
+                    <td> <img class="img-thumbnail" src='@Url.Content("~/Uploads/" + item.MenuPhoto)' /> </td>
+                    <td>@item.Carlorie</td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", new { id = item.MenuID })
+
+
                     </td>
                 </tr>
             }
-            else
-            {
-                foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.Name</td>
-                        <td> <img class="img-thumbnail" src='@Url.Content("~/Uploads/" + item.MenuPhoto)' /> </td>
-                        <td>@item.Carlorie</td>
-                        <td>
-                            @Html.ActionLink("Details", "Details", new { id = item.MenuID })
-                            
+        }
 
-                        </td>
-                    </tr>
-                }
-            }
+    </tbody>
+</table>
 
-        </tbody>
-    </table>
+<h2>
+    Not satisfield? upload your menu!
+</h2>
+@Html.ActionLink("Upload", "Create")
 
-    @using (Html.BeginForm("Create", "SeeMenu"))
-    {
-
-        <div class="col-md-10">
-            <h2>
-                Not satisfield? upload your menu!
-            </h2>
-            <br />
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Upload" class="btn btn-default" />
-            </div>
-        </div>
-
-    }
 

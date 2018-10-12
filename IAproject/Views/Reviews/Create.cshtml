@@ -1,73 +1,64 @@
-﻿@model IAproject.Models.Review
+﻿@model IEnumerable<IAproject.Models.Review>
 
+@using System.Linq;
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+
 }
 <script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
 
-<div>
-    <h4>Menu</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Menu.Name)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Menu.Name)
-        </dd>
+<h4>Menu</h4>
+<hr />
+<ul>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Menu.Description)
-        </dt>
+    @foreach (var cal in ViewData["menuview"] as List<string>)
+    {
+        <li>
+            @cal
+        </li>
+    }
+</ul>
 
-        <dd>
-            @Html.DisplayFor(model => model.Menu.Description)
-        </dd>
+<img class="img-thumbnail" src='@Url.Content(ViewBag.viewphoto)' />
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Menu.MenuPhoto)
-        </dt>
+@foreach (var item in Model)
+{
+    <tr>
 
-        <dd>
-            <img class="img-thumbnail" src='@Url.Content("~/Uploads/" + Model.Menu.MenuPhoto)' />
-        </dd>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReviewText)
+        </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Menu.Carlorie)
-        </dt>
+        <td>
+            @Html.DisplayFor(m => item.Stars)
+        </td>
+    </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.Menu.Carlorie)
-        </dd>
 
-    </dl>
-</div>
+
+}
+
+
+
 
 <h2>Create</h2>
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("AddReview", "Reviews", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    
+
 <div class="form-horizontal">
     <h4>Review</h4>
     <hr />
 
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(model => model.ReviewText, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.ReviewText, new { htmlAttributes = new { @class = "form-control", @id = "mytextarea" } })
-            @Html.ValidationMessageFor(model => model.ReviewText, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Stars, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Stars, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Stars, "", new { @class = "text-danger" })
+            @Html.LabelFor(model => model.First().ReviewText, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(model => model.FirstOrDefault().ReviewText, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.First().ReviewText, "", new { @class = "text-danger" })
         </div>
     </div>
 
@@ -80,18 +71,17 @@
 </div>
 }
 
-@ViewBag.test;
 
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index","Home")
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-<script>
-    tinymce.init({
-        selector: 'mytextarea'
-    })
+    <script>
+        tinymce.init({
+            selector: 'mytextarea'
+        })
     </script>
 }
