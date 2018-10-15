@@ -58,7 +58,7 @@ namespace IAproject.Controllers
             {
                 string serverPath = Server.MapPath("~/Uploads/");
                 string fileExtension = Path.GetExtension(postedFile.FileName);
-                string filePath = menu + fileExtension;
+                string filePath = menu.MenuPhoto + fileExtension;
                 menu.MenuPhoto = filePath;
                 postedFile.SaveAs(serverPath + menu.MenuPhoto);
                 db.Menus.Add(menu);
@@ -133,6 +133,20 @@ namespace IAproject.Controllers
         {
             Menu menu = db.Menus.Find(id);
             db.Menus.Remove(menu);
+            foreach (var item in db.Reviews)
+            {
+                if (item.MenuID == menu.MenuID)
+                    db.Reviews.Remove(item);
+            }
+            using (PersonalMenuEntities db = new PersonalMenuEntities())
+            {
+                foreach (var item in db.PersonalMenus)
+                {
+                    if (item.MenuID == menu.MenuID)
+                        db.PersonalMenus.Remove(item);
+                }
+                db.SaveChanges();
+            }
             db.SaveChanges();
             return RedirectToAction("Index");
         }

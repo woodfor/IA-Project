@@ -25,7 +25,11 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Menus", "Index", "MenusNewest")</li>
+                    @if(User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Personal Favouritr food", "Index", "AspNetUsers")</li>
+                    }
+                    
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

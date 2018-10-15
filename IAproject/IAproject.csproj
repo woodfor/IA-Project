@@ -203,12 +203,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AspNetUsersController.cs" />
     <Compile Include="Controllers\CalculationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MenusNewestController.cs" />
     <Compile Include="Controllers\MenustestController.cs" />
-    <Compile Include="Controllers\Reviews1Controller.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Controllers\SeeMenuController.cs" />
     <Compile Include="Global.asax.cs">
@@ -251,6 +251,24 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NewestModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\PersonalMenu.cs">
+      <DependentUpon>PersonalMenuModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PersonalMenuModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PersonalMenuModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PersonalMenuModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PersonalMenuModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PersonalMenuModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PersonalMenuModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Review.cs">
       <DependentUpon>NewestModel.tt</DependentUpon>
     </Compile>
@@ -285,6 +303,16 @@
       <DependentUpon>NewestModel.edmx</DependentUpon>
       <LastGenOutput>NewestModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\PersonalMenuModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PersonalMenuModel.edmx</DependentUpon>
+      <LastGenOutput>PersonalMenuModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\PersonalMenuModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PersonalMenuModel.edmx</DependentUpon>
+      <LastGenOutput>PersonalMenuModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -302,6 +330,13 @@
     </EntityDeploy>
     <Content Include="Models\NewestModel.edmx.diagram">
       <DependentUpon>NewestModel.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\PersonalMenuModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PersonalMenuModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\PersonalMenuModel.edmx.diagram">
+      <DependentUpon>PersonalMenuModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -601,13 +636,18 @@
     <Content Include="Views\Reviews\Details.cshtml" />
     <Content Include="Views\Reviews\Edit.cshtml" />
     <Content Include="Views\Reviews\Index.cshtml" />
+    <Content Include="Views\AspNetUsers\Create.cshtml" />
+    <Content Include="Views\AspNetUsers\Delete.cshtml" />
+    <Content Include="Views\AspNetUsers\Details.cshtml" />
+    <Content Include="Views\AspNetUsers\Edit.cshtml" />
+    <Content Include="Views\AspNetUsers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Uploads\" />
+    <Folder Include="User\" />
     <Folder Include="Views\Calculation\" />
     <Folder Include="Views\Menustest\" />
-    <Folder Include="Views\Reviews1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

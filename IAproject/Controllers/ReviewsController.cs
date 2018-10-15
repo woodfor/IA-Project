@@ -7,12 +7,13 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using IAproject.Models;
+using Microsoft.AspNet.Identity;
 
 namespace IAproject.Controllers
 {
     public class ReviewsController : Controller
     {
-        Menu menutmp;
+        protected static Menu menutmp;
         private MenuNewestEntities db = new MenuNewestEntities();
 
         // GET: Reviews
@@ -48,30 +49,43 @@ namespace IAproject.Controllers
             ViewBag.viewphoto = "~/Uploads/" + menu.MenuPhoto;
             List<Review> reviewlist = new List<Review>();
             reviewlist = db.Reviews.Where(x => x.MenuID == menu.MenuID).ToList();
-            ViewBag.Menu = menu.MenuID;
-            foreach (var tmp in reviewlist)
-            {
-                tmp.Menu = menu;
-            }
+            ViewBag.Menu = menu;
+            
             
             return View(reviewlist);
         }
 
-        public ActionResult AddReview([Bind(Include = "ReviewText")] Review review, int menuid)
+        public ActionResult AddFavourite()
         {
+           
+
+            if (db.AspNetUsers.Find(User.Identity.GetUserId()).Menus.Contains(menutmp))
+            {
+                return Content(" <script>function window.onload() {alert( ' Please login to see your suggested menu.' ); } </script> ");
+               // Response.Write(" <script>function window.onload() {alert( ' Please login to see your suggested menu.' ); } </script> ");
+            }
+            else
+            {
+                return RedirectToAction("AddFavourite", "AspNetUsers", menutmp);
+            }
             
-            Review reviewtmp = new Review();
-            
+        }
+
+       //Response.Redirect(Request.UrlReferrer.ToString());
+
+        public ActionResult AddReview([Bind(Include = "ReviewText")] Review review)
+        {
+            //Menu menu = ViewBag.Menu;                       
             ModelState.Clear();
             TryValidateModel(review);
             if (ModelState.IsValid)
             {
-                review.MenuID = menuid;
+                review.MenuID = menutmp.MenuID;
                 db.Reviews.Add(review);
                 db.SaveChanges();
-                return RedirectToAction("ProvideSuggest","SeeMenu");
+                return RedirectToAction("Create","Reviews",menutmp);
             }
-            return RedirectToAction("ProvideSuggest", "SeeMenu");
+            return RedirectToAction("Create", "Reviews",menutmp);
         }
 
 

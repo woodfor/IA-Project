@@ -1,0 +1,47 @@
+﻿@model IAproject.Models.AspNetUser
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Menu name</th>
+            <th>Menu Photo</th>
+            <th>Calorie</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Menus.Count() == 0)
+        {
+            <tr>
+                <td colspan="3" style="color:red">
+                    No favourite menu added
+                </td>
+            </tr>
+        }
+        else
+        {
+            foreach (var item in Model.Menus)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td> <img class="img-thumbnail" src='@Url.Content("~/Uploads/" + item.MenuPhoto)' /> </td>
+                    <td>@item.Carlorie</td>
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.MenuID })
+
+
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
+
+
+
+

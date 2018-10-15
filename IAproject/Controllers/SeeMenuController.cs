@@ -17,30 +17,41 @@ namespace IAproject.Controllers
         private MenuNewestEntities db = new MenuNewestEntities();
         public ActionResult ProvideSuggest([Bind(Include = "CalResult")] Calculation cal)
         {
-            
-            if (cal.CalResult == 0)
+            if (User.Identity.IsAuthenticated)
             {
-                
-                return RedirectToAction("Index", "Home");
-                              
+                if (cal.CalResult == 0)
+                {
+
+                    return RedirectToAction("Index", "Home");
+
+                }
+                else
+                {
+
+                    List<Menu> menulist = new List<Menu>();
+                    try
+                    {
+                        int Value = Convert.ToInt32(cal.CalResult);
+                        menulist = db.Menus.Where(x => Value > 0 && (Value - 500 < x.Carlorie && x.Carlorie <= Value)).ToList();
+
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("{0} is not correct", cal.CalResult);
+                    }
+
+                    return View(menulist);
+                }
             }
             else
             {
-                
-                List<Menu> menulist = new List<Menu>();
-                try
-                {
-                    int Value = Convert.ToInt32(cal.CalResult);
-                    menulist = db.Menus.Where(x =>  Value > 0 && (Value - 500 < x.Carlorie && x.Carlorie <= Value)).ToList();
-
-                }
-                catch (FormatException)
-                {
-                    Console.WriteLine("{0} is not correct", cal.CalResult);
-                }
-
-                return View(menulist);
+                //System.Web.HttpContext.Current.Response.Write("<SCRIPT LANGUAGE=""JavaScript"">alert("Hello this is an Alert")</SCRIPT>");
+               // Response.Write("Please login to see your suggested menu");
+               // Response.Write("<script>alert('Please login to see your suggested menu ')</script>");
+               // Response.Write(" <script>function window.onload() {alert( ' Please login to see your suggested menu.' ); } </script> ");
+                return RedirectToAction("Index","Home");
             }
+           
             
         }
 
@@ -90,12 +101,13 @@ namespace IAproject.Controllers
             ModelState.Clear();
             var myUniqueFileName = string.Format(@"{0}", Guid.NewGuid());
             menu.MenuPhoto = myUniqueFileName;
+            
             TryValidateModel(menu);
             if (ModelState.IsValid)
             {
                 string serverPath = Server.MapPath("~/Uploads/");
                 string fileExtension = Path.GetExtension(postedFile.FileName);
-                string filePath = menu + fileExtension;
+                string filePath = menu.MenuPhoto + fileExtension;
                 menu.MenuPhoto = filePath;
                 postedFile.SaveAs(serverPath + menu.MenuPhoto);
                 db.Menus.Add(menu);
