@@ -12,6 +12,7 @@ namespace IAproject.Controllers
 {
     public class ReviewsController : Controller
     {
+        Menu menutmp;
         private MenuNewestEntities db = new MenuNewestEntities();
 
         // GET: Reviews
@@ -38,6 +39,7 @@ namespace IAproject.Controllers
 
         public ActionResult Create(Menu menu)
         {
+            menutmp = menu;
             List<string> menuview = new List<string>();
             menuview.Add("Name " + menu.Name);
             menuview.Add("Carlorie " + menu.Carlorie+"");
@@ -46,6 +48,7 @@ namespace IAproject.Controllers
             ViewBag.viewphoto = "~/Uploads/" + menu.MenuPhoto;
             List<Review> reviewlist = new List<Review>();
             reviewlist = db.Reviews.Where(x => x.MenuID == menu.MenuID).ToList();
+            ViewBag.Menu = menu.MenuID;
             foreach (var tmp in reviewlist)
             {
                 tmp.Menu = menu;
@@ -54,13 +57,16 @@ namespace IAproject.Controllers
             return View(reviewlist);
         }
 
-        public ActionResult AddReview([Bind(Include = "ReviewText")] Review review)
+        public ActionResult AddReview([Bind(Include = "ReviewText")] Review review, int menuid)
         {
+            
+            Review reviewtmp = new Review();
+            
             ModelState.Clear();
             TryValidateModel(review);
             if (ModelState.IsValid)
             {
-                
+                review.MenuID = menuid;
                 db.Reviews.Add(review);
                 db.SaveChanges();
                 return RedirectToAction("ProvideSuggest","SeeMenu");

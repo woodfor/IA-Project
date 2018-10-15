@@ -208,6 +208,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MenusNewestController.cs" />
     <Compile Include="Controllers\MenustestController.cs" />
+    <Compile Include="Controllers\Reviews1Controller.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Controllers\SeeMenuController.cs" />
     <Compile Include="Global.asax.cs">
@@ -606,6 +607,7 @@
     <Folder Include="Uploads\" />
     <Folder Include="Views\Calculation\" />
     <Folder Include="Views\Menustest\" />
+    <Folder Include="Views\Reviews1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
