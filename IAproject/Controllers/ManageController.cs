@@ -102,7 +102,7 @@ namespace IAproject.Controllers
             {
                 ArrayList xValue = new ArrayList();
                 ArrayList yValue = new ArrayList();
-                var results = (from c in db.CalRecords where c.UserId.Equals(userid)  orderby c.CreateDate descending select  c).Distinct().Take(5);
+                var results = (from c in db.CalRecords where c.UserId.Equals(userid)  orderby c.Calories ascending  select  new{c.Calories, c.CreateDate }).Distinct().Take(5);
                 results.ToList().ForEach(rs => xValue.Add(rs.CreateDate));
                 results.ToList().ForEach(rs => yValue.Add(rs.Calories));
                 new Chart(width: 600, height: 600, theme: ChartTheme.Blue).AddTitle("Calories record")

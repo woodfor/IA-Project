@@ -88,12 +88,26 @@ namespace IAproject.Controllers
         }
         public ActionResult Addrecord([Bind(Include = "Id,Carlories,UserID,CreateDate")] CalRecord cal)
         {
+            List<CalRecord> calRecords = new List<CalRecord>();
+            calRecords=db.CalRecords.Where(x => x.CreateDate.Equals(System.DateTime.Today)).ToList();
+            if(calRecords!=null)
+            {
+                foreach (var rec in calRecords)
+                {
+                    rec.Calories = tmpcal;
+                }
+                db.SaveChanges();
+            }
+            else
+            {
+                cal.Calories = tmpcal;
+                cal.UserId = User.Identity.GetUserId();
+                cal.CreateDate = System.DateTime.Today;
+                db.CalRecords.Add(cal);
+                db.SaveChanges();
 
-            cal.Calories = tmpcal;
-            cal.UserId = User.Identity.GetUserId();
-            cal.CreateDate = System.DateTime.Today;
-            db.CalRecords.Add(cal);
-            db.SaveChanges();
+            }
+            
             return RedirectToAction("ReturnSuggest");
         }
 
