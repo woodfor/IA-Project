@@ -79,7 +79,7 @@ namespace IAproject.Models
         [Display(Name = "Confirm password")] 
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-
+        [Required]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:dd-mm-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Birthday")]

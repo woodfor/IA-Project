@@ -11,12 +11,13 @@
         <EntityTypeShape EntityType="Model.AspNetUserLogin" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.AspNetUser" Width="1.5" PointX="4.625" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Menu" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Review" Width="1.5" PointX="3.375" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Review" Width="1.5" PointX="2.625" PointY="7.25" IsExpanded="true" />
         <AssociationConnector Association="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_Review_ToTable" ManuallyRouted="false" />
         <AssociationConnector Association="Model.AspNetUserRoles" ManuallyRouted="false" />
         <AssociationConnector Association="Model.PersonalMenu" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Review_ToTable_1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

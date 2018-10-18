@@ -1,0 +1,12 @@
+﻿@model IAproject.Models.AspNetUser
+@{
+    ViewBag.Title = "AdminPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AdminPage</h2>
+<h3>@Html.ActionLink("Manage menus", "ManageMenus");</h3>
+<br />
+<h3>@Html.ActionLink("Manage Users", "ManageUsers");</h3>
+
+

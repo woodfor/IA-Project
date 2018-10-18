@@ -8,7 +8,6 @@
 <h2>Suggest Menu</h2>
 
 
-
 <table class="table">
     <thead>
         <tr>
@@ -40,8 +39,8 @@
 
                     </td>
                 </tr>
+                }
             }
-        }
 
     </tbody>
 </table>
@@ -49,6 +48,13 @@
 <h2>
     Not satisfield? upload your menu!
 </h2>
-@Html.ActionLink("Upload", "Create")
+<h2>@Html.ActionLink("Upload", "Create")</h2>
 
-
+@if (ViewBag.authenticated != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.authenticated ");
+            }
+    </script>
+}

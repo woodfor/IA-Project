@@ -61,6 +61,7 @@
     <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
     <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
     <NavigationProperty Name="Menus" Relationship="Self.PersonalMenu" FromRole="AspNetUsers" ToRole="Menu" />
+    <NavigationProperty Name="Reviews" Relationship="Model.FK_Review_ToTable_1" FromRole="AspNetUser" ToRole="Review" />
   </EntityType>
   <EntityType Name="Menu">
     <Key>
@@ -83,6 +84,9 @@
     <Property Name="Stars" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
     <Property Name="MenuID" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Menu" Relationship="Self.FK_Review_ToTable" FromRole="Review" ToRole="Menu" />
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="Model.FK_Review_ToTable_1" FromRole="Review" ToRole="AspNetUser" />
+    <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
     <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
@@ -160,5 +164,21 @@
       <End Role="Menu" EntitySet="Menus" />
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
     </AssociationSet>
+    <AssociationSet Name="FK_Review_ToTable_1" Association="Model.FK_Review_ToTable_1">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Review" EntitySet="Reviews" />
+    </AssociationSet>
   </EntityContainer>
+  <Association Name="FK_Review_ToTable_1">
+    <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="Model.Review" Role="Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

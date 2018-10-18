@@ -64,8 +64,24 @@ namespace IAproject.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+            if (userId.Equals("440b3391-95f7-4803-ba5d-d9b970979063"))
+            {
+                return RedirectToAction("AdminPage", "AspNetUsers");
+            }
+            string name;
+            string date;
+            using (MenuNewestEntities db = new MenuNewestEntities())
+            {
+                name = db.AspNetUsers.Find(userId).UserName;
+                date = db.AspNetUsers.Find(userId).Birthday.ToString();                
+
+            }
+            ViewBag.name = name;
+            ViewBag.date = date;
             var model = new IndexViewModel
             {
+
+                
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),

@@ -17,18 +17,20 @@ namespace IAproject.Controllers
         private MenuNewestEntities db = new MenuNewestEntities();
         public ActionResult ProvideSuggest([Bind(Include = "CalResult")] Calculation cal)
         {
-            if (User.Identity.IsAuthenticated)
-            {
+            List<Menu> menulist = new List<Menu>();
+            //if (User.Identity.IsAuthenticated)
+            //{
+
                 if (cal.CalResult == 0)
                 {
 
-                    return RedirectToAction("Index", "Home");
+                   return RedirectToAction("Index", "Home");
 
                 }
                 else
                 {
 
-                    List<Menu> menulist = new List<Menu>();
+
                     try
                     {
                         int Value = Convert.ToInt32(cal.CalResult);
@@ -43,17 +45,18 @@ namespace IAproject.Controllers
                     return View(menulist);
                 }
             }
-            else
-            {
-                //System.Web.HttpContext.Current.Response.Write("<SCRIPT LANGUAGE=""JavaScript"">alert("Hello this is an Alert")</SCRIPT>");
-               // Response.Write("Please login to see your suggested menu");
-               // Response.Write("<script>alert('Please login to see your suggested menu ')</script>");
-               // Response.Write(" <script>function window.onload() {alert( ' Please login to see your suggested menu.' ); } </script> ");
-                return RedirectToAction("Index","Home");
-            }
+            //else
+            //{
+            //    //ViewBag.authenticated = "Alert";
+            //    //System.Web.HttpContext.Current.Response.Write("<SCRIPT LANGUAGE=""JavaScript"">alert("Hello this is an Alert")</SCRIPT>");
+            //    // Response.Write("Please login to see your suggested menu");
+            //    // Response.Write("<script>alert('Please login to see your suggested menu ')</script>");
+            //   // Response.Write(" <script type='text / javascript'>window.onload = function () {alert( ' Please login to see your suggested menu.' ); } </script> ");
+            //    return RedirectToAction("Login", "Account", routeValues: null);
+            //}
            
             
-        }
+        
 
         public ActionResult RedirToCreate()
         {

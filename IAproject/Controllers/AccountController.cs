@@ -78,8 +78,8 @@ namespace IAproject.Controllers
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                case SignInStatus.Success:                   
+                    return RedirectToLocal(returnUrl);                                                                                             
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -165,6 +165,7 @@ namespace IAproject.Controllers
 
                     using (MenuNewestEntities db = new MenuNewestEntities())
                     {
+                        
                         db.AspNetUsers.Find(user.Id = user.Id).Birthday = DateTime.Parse(model.Birthday);
                         db.SaveChanges();
 

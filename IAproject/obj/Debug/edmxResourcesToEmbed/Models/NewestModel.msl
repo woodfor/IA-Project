@@ -72,6 +72,8 @@
     <EntitySetMapping Name="Reviews">
       <EntityTypeMapping TypeName="Model.Review">
         <MappingFragment StoreEntitySet="Review">
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="ReviewNum" ColumnName="ReviewNum" />
           <ScalarProperty Name="ReviewText" ColumnName="ReviewText" />
           <ScalarProperty Name="Stars" ColumnName="Stars" />

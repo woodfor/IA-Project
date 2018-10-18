@@ -22,7 +22,11 @@ namespace IAproject.Models
         public string ReviewText { get; set; }
         public decimal Stars { get; set; }
         public int MenuID { get; set; }
+        [Required]
+        public string Id { get; set; }
+        public string Username { get; set; }
     
         public virtual Menu Menu { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

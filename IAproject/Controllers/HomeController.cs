@@ -10,6 +10,7 @@ namespace IAproject.Controllers
     {
         public ActionResult Index([Bind(Include = "Age,PersonalGender,Height,Weight,Activity,CalResult")] Calculation cal)
         {
+            
             IList<string> calorie = new List<string>();
             double BMR=0;
             double rate = 1.2;
@@ -83,6 +84,7 @@ namespace IAproject.Controllers
                 
             }
             ViewData["Calculation"] = calorie;
+            
             return View();
         }
 

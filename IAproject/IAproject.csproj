@@ -214,6 +214,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\ToDoHubs.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AspNetRole.cs">
       <DependentUpon>NewestModel.tt</DependentUpon>
@@ -608,10 +609,10 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Menus\Create.cshtml" />
+    <Content Include="Views\AspNetUsers\CreateMenu.cshtml" />
     <Content Include="Views\Menus\Delete.cshtml" />
-    <Content Include="Views\Menus\Details.cshtml" />
-    <Content Include="Views\Menus\Edit.cshtml" />
+    <Content Include="Views\AspNetUsers\MenuDetails.cshtml" />
+    <Content Include="Views\AspNetUsers\EditMenu.cshtml" />
     <Content Include="Views\Menus\Index.cshtml" />
     <Content Include="Views\SeeMenu\Create.cshtml" />
     <Content Include="Views\SeeMenu\Delete.cshtml" />
@@ -638,9 +639,11 @@
     <Content Include="Views\Reviews\Index.cshtml" />
     <Content Include="Views\AspNetUsers\Create.cshtml" />
     <Content Include="Views\AspNetUsers\Delete.cshtml" />
-    <Content Include="Views\AspNetUsers\Details.cshtml" />
-    <Content Include="Views\AspNetUsers\Edit.cshtml" />
     <Content Include="Views\AspNetUsers\Index.cshtml" />
+    <Content Include="Views\Reviews\AddFavourite.cshtml" />
+    <Content Include="Views\AspNetUsers\AdminPage.cshtml" />
+    <Content Include="Views\AspNetUsers\ManageMenus.cshtml" />
+    <Content Include="Views\AspNetUsers\ManageUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -648,6 +651,7 @@
     <Folder Include="User\" />
     <Folder Include="Views\Calculation\" />
     <Folder Include="Views\Menustest\" />
+    <Folder Include="Views\ToDoHubs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

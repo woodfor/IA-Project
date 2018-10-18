@@ -89,6 +89,8 @@
     <Property Name="ReviewText" Type="varchar(max)" />
     <Property Name="Stars" Type="numeric" Precision="18" Scale="0" Nullable="false" />
     <Property Name="MenuID" Type="int" Nullable="false" />
+    <Property Name="Id" Type="nvarchar" MaxLength="128" />
+    <Property Name="Username" Type="nvarchar(max)" />
   </EntityType>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -182,6 +184,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Review_ToTable_1">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Review" Type="Self.Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="ModelStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -218,6 +232,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_Review_ToTable" Association="Self.FK_Review_ToTable">
       <End Role="Menu" EntitySet="Menu" />
+      <End Role="Review" EntitySet="Review" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Review_ToTable_1" Association="Self.FK_Review_ToTable_1">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="Review" EntitySet="Review" />
     </AssociationSet>
   </EntityContainer>

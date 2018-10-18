@@ -14,8 +14,9 @@ namespace IAproject.Controllers
     public class ReviewsController : Controller
     {
         protected static Menu menutmp;
+      //  private static string tmpdata;
         private MenuNewestEntities db = new MenuNewestEntities();
-
+        
         // GET: Reviews
         public ActionResult Index()
         {
@@ -42,32 +43,60 @@ namespace IAproject.Controllers
         {
             menutmp = menu;
             List<string> menuview = new List<string>();
-            menuview.Add("Name " + menu.Name);
-            menuview.Add("Carlorie " + menu.Carlorie+"");
-            menuview.Add("Description " + menu.Description);
+            
+            menuview.Add("Name: " + menu.Name);
+            menuview.Add("Carlorie: " + menu.Carlorie+"");
+            menuview.Add("Description: " + menu.Description);
             ViewData["menuview"] = menuview;
             ViewBag.viewphoto = "~/Uploads/" + menu.MenuPhoto;
             List<Review> reviewlist = new List<Review>();
-            reviewlist = db.Reviews.Where(x => x.MenuID == menu.MenuID).ToList();
-            ViewBag.Menu = menu;
+            
+            Random r = new Random((int)DateTime.Now.Ticks);
+            reviewlist = db.Reviews.Where(x => x.MenuID == menu.MenuID).ToList().OrderBy(x => r.Next()).Take(5).ToList();
+            if (User.Identity.IsAuthenticated)
+            {
+                foreach (var item in db.AspNetUsers.Find(User.Identity.GetUserId()).Menus)
+                {
+                    if (item.MenuID == menutmp.MenuID)
+                    {
+                        ViewBag.containmenu = "Menu contained";
+                        return View(reviewlist);
+                    }
+                }
+            }
             
             
-            return View(reviewlist);
+
+                return View(reviewlist);
+        }
+
+        public ActionResult BackToLisk()
+        {
+            return Redirect(Request.UrlReferrer.ToString());
+
         }
 
         public ActionResult AddFavourite()
         {
-           
-
-            if (db.AspNetUsers.Find(User.Identity.GetUserId()).Menus.Contains(menutmp))
+            if (User.Identity.IsAuthenticated)
             {
-                return Content(" <script>function window.onload() {alert( ' Please login to see your suggested menu.' ); } </script> ");
-               // Response.Write(" <script>function window.onload() {alert( ' Please login to see your suggested menu.' ); } </script> ");
+                //foreach (var item in db.AspNetUsers.Find(User.Identity.GetUserId()).Menus)
+
+                //{
+                //    if (item.MenuID == menutmp.MenuID)
+                //        return Content(" <script type='text / javascript'>window.onload = function () {alert( ' Please login to see your suggested menu.' ); } </script> ");
+
+                //}
+
+               
+                return RedirectToAction("AddFavourite", "AspNetUsers", menutmp);
+                
             }
             else
             {
-                return RedirectToAction("AddFavourite", "AspNetUsers", menutmp);
+                return RedirectToAction("Login", "Account", routeValues: null);
             }
+            
             
         }
 
@@ -78,14 +107,17 @@ namespace IAproject.Controllers
             //Menu menu = ViewBag.Menu;                       
             ModelState.Clear();
             TryValidateModel(review);
-            if (ModelState.IsValid)
-            {
+           // if (ModelState.IsValid)
+          //  {
+                review.Id = User.Identity.GetUserId();
                 review.MenuID = menutmp.MenuID;
+                review.Username = User.Identity.Name;
                 db.Reviews.Add(review);
                 db.SaveChanges();
-                return RedirectToAction("Create","Reviews",menutmp);
-            }
-            return RedirectToAction("Create", "Reviews",menutmp);
+                TempData["YourReview"] = review.ReviewText;
+            return Redirect(Request.UrlReferrer.ToString());
+            // }
+            //   return HttpNotFound();
         }
 
 
@@ -136,7 +168,21 @@ namespace IAproject.Controllers
             }
             return View(review);
         }
+        public ActionResult DeleteMenu()
+        {
+            
+            using (PersonalMenuEntities db = new PersonalMenuEntities())
+            {
+                string userid = User.Identity.GetUserId();
+                List<PersonalMenu> tmp =
+                db.PersonalMenus.Where(x => x.Id.Equals(userid) && x.MenuID.Equals(menutmp.MenuID)).ToList();
+                db.PersonalMenus.RemoveRange(tmp);
+                db.SaveChanges();
 
+            }
+                                    
+            return RedirectToAction("Create", "Reviews",menutmp);
+        }
         // POST: Reviews/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

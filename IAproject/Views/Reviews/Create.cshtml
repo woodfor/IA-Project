@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    
+
 
 }
 
@@ -17,45 +17,81 @@
     @foreach (var cal in ViewData["menuview"] as List<string>)
     {
         <li>
-            @cal
+            <h3>@cal</h3>
         </li>
     }
 </ul>
 
 <img class="img-thumbnail" src='@Url.Content(ViewBag.viewphoto)' />
+<div>
+    @if (ViewBag.containmenu != null)
+    {
+        <h4>You have added it to favourite. @Html.ActionLink("Delete?", "DeleteMenu", "Reviews")</h4>
+    }
+    else
+    {
+        <h3>@Html.ActionLink("Add to favourite", "AddFavourite", "Reviews")</h3>
+    }
 
-@foreach (var item in Model)
-{
-    <tr>
+</div>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.ReviewText)
-        </td>
-
-        <td>
-            @Html.DisplayFor(m => item.Stars)
-        </td>
-    </tr>
-
-
-
-}
-
-
-
-    <div>
-        @Html.ActionLink("Add to favourite", "AddFavourite", "Reviews")
+<div>
+<h3>@Html.ActionLink("Back to list", "BackToLisk")</h3>
     </div>
 
+<hr />
+<div>
+    <h2>Several reviews of this menu</h2>
+    <ul class="list-group">
 
-<h2>Create</h2>
+        @foreach (var item in Model)
+        {
+            if (item.Username == null)
+            {
+                <li>Someone says: @Html.Raw(item.ReviewText)</li>
+            }
+            else
+            {
+                <li>@item.Username says: @Html.Raw(item.ReviewText)</li>
+            }
+
+
+        }
+
+    </ul>
+
+</div>
+
+@*<div>
+    <h2>Some real times reviews: </h2>
+    <ul id="discussion" class="list-group"></ul>
+</div>*@
+
+<hr />
+<div>
+
+    @if (TempData["YourReview"] != null)
+    {
+        <h3>
+            Your last review
+        </h3>
+        <h4>you said:</h4>
+        <br />
+        <h4>"@Html.Raw(TempData["YourReview"])"</h4>
+    }
+
+</div>
+
+
+<hr />
+
+<h2>Write something about the menu</h2>
+
 @using (Html.BeginForm("AddReview", "Reviews", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Review</h4>
-        <hr />
 
         <div class="form-group">
 
@@ -69,22 +105,54 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <button type="submit" class="btn btn-default" id="sendmessage">Sumbit</button>
             </div>
         </div>
     </div>
 }
 
+    
 
-
-<div>
-    @Html.ActionLink("Back to List", "Index", "Home")
-</div>
 
 @section Scripts {
+
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery.signalR-2.3.0.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script>
+        $(function () {
+            // Reference the auto-generated proxy for the hub.
+            var toDo = $.connection.toDoHub;
+            // Create a function that the hub can call back to display messages.
+            toDo.client.addNewMessageToPage = function (message) {
+                // Add the message to the page.
+
+
+                $('#discussion').append("<li class='list-group-item'><strong>" + htmlEncode(message) + '</li>');
+            };
+            // Start the connection.
+            $.connection.hub.start().done(function () {
+                $('#sendmessage').click(function () {
+
+                    var message = $('#mytextarea').val();
+                    if (message.length == 0)
+                        return;
+                    // Call the Send method on the hub.
+                    toDo.server.send($('#mytextarea').val());
+                    // Clear text box and reset focus for next comment.
+                    $('#mytextarea').val('');
+                });
+            });
+        });
+        // This optional function html-encodes messages for display in the page.
+        function htmlEncode(value) {
+            var encodedValue = $('<div />').text(value).html();
+            return encodedValue;
+        }
+    </script>
 
     <script>
+
         $(function () {
             tinymce.init({
                 selector: '#mytextarea'
