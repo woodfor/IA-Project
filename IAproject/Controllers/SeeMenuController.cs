@@ -8,12 +8,15 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using IAproject.Models;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
 namespace IAproject.Controllers
 {
     public class SeeMenuController : Controller
     {
+        private static decimal tmpcal;
+        
         private MenuNewestEntities db = new MenuNewestEntities();
         public ActionResult ProvideSuggest([Bind(Include = "CalResult")] Calculation cal)
         {
@@ -21,7 +24,13 @@ namespace IAproject.Controllers
             //if (User.Identity.IsAuthenticated)
             //{
 
-                if (cal.CalResult == 0)
+            if (User.Identity.IsAuthenticated)
+            {
+
+                ViewBag.AddToRecord = cal.CalResult;
+                tmpcal = (decimal)cal.CalResult;
+            }
+            if (cal.CalResult == 0)
                 {
 
                    return RedirectToAction("Index", "Home");
@@ -45,18 +54,48 @@ namespace IAproject.Controllers
                     return View(menulist);
                 }
             }
-            //else
-            //{
-            //    //ViewBag.authenticated = "Alert";
-            //    //System.Web.HttpContext.Current.Response.Write("<SCRIPT LANGUAGE=""JavaScript"">alert("Hello this is an Alert")</SCRIPT>");
-            //    // Response.Write("Please login to see your suggested menu");
-            //    // Response.Write("<script>alert('Please login to see your suggested menu ')</script>");
-            //   // Response.Write(" <script type='text / javascript'>window.onload = function () {alert( ' Please login to see your suggested menu.' ); } </script> ");
-            //    return RedirectToAction("Login", "Account", routeValues: null);
-            //}
-           
-            
+        //else
+        //{
+        //    //ViewBag.authenticated = "Alert";
+        //    //System.Web.HttpContext.Current.Response.Write("<SCRIPT LANGUAGE=""JavaScript"">alert("Hello this is an Alert")</SCRIPT>");
+        //    // Response.Write("Please login to see your suggested menu");
+        //    // Response.Write("<script>alert('Please login to see your suggested menu ')</script>");
+        //   // Response.Write(" <script type='text / javascript'>window.onload = function () {alert( ' Please login to see your suggested menu.' ); } </script> ");
+        //    return RedirectToAction("Login", "Account", routeValues: null);
+        //}
         
+        public ActionResult ReturnSuggest()
+        {
+            List<Menu> menulist = new List<Menu>();
+            //if (User.Identity.IsAuthenticated)
+            //{
+
+            
+
+                try
+                {
+                    int Value = Convert.ToInt32(tmpcal);
+                    menulist = db.Menus.Where(x => Value > 0 && (Value - 500 < x.Carlorie && x.Carlorie <= Value)).ToList();
+
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("{0} is not correct", tmpcal);
+                }
+
+                return View("ProvideSuggest",menulist);
+          
+        }
+        public ActionResult Addrecord([Bind(Include = "Id,Carlories,UserID,CreateDate")] CalRecord cal)
+        {
+
+            cal.Calories = tmpcal;
+            cal.UserId = User.Identity.GetUserId();
+            cal.CreateDate = System.DateTime.Today;
+            db.CalRecords.Add(cal);
+            db.SaveChanges();
+            return RedirectToAction("ReturnSuggest");
+        }
 
         public ActionResult RedirToCreate()
         {
@@ -115,7 +154,7 @@ namespace IAproject.Controllers
                 postedFile.SaveAs(serverPath + menu.MenuPhoto);
                 db.Menus.Add(menu);
                 db.SaveChanges();
-                return RedirectToAction("ProvideSuggest");
+                return RedirectToAction("ReturnSuggest");
             }
 
             return View(menu);

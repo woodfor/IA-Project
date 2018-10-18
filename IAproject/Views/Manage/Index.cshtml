@@ -36,6 +36,9 @@
         <dd>
             @Html.ActionLink("See your favourite menus", "Index", "AspNetUsers");
         </dd>
+
+        
+
         @*<dt>External Logins:</dt>
         <dd>
             @Model.Logins.Count [
@@ -98,4 +101,8 @@
         }*@
         
     </dl>
+</div>
+<h2> Your calories record.</h2>
+<div>
+    <img src="@Url.Action("CharterColumn")" alt="Chart"/>
 </div>

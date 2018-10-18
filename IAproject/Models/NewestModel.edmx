@@ -68,6 +68,15 @@
           <Property Name="Birthday" Type="date" />
           <Property Name="Carlories" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
+        <EntityType Name="CalRecord">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Calories" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CreateDate" Type="date" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
         <EntityType Name="Menu">
           <Key>
             <PropertyRef Name="MenuID" />
@@ -201,6 +210,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Table_ToTable">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="CalRecord" Type="Self.CalRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CalRecord">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -208,6 +229,7 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CalRecord" EntityType="Self.CalRecord" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonalMenu" EntityType="Self.PersonalMenu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Review" EntityType="Self.Review" Schema="dbo" store:Type="Tables" />
@@ -242,6 +264,10 @@
           <AssociationSet Name="FK_Review_ToTable_1" Association="Self.FK_Review_ToTable_1">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Review" EntitySet="Review" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_ToTable" Association="Self.FK_Table_ToTable">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CalRecord" EntitySet="CalRecord" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -310,6 +336,7 @@
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
           <NavigationProperty Name="Menus" Relationship="Self.PersonalMenu" FromRole="AspNetUsers" ToRole="Menu" />
           <NavigationProperty Name="Reviews" Relationship="Model.FK_Review_ToTable_1" FromRole="AspNetUser" ToRole="Review" />
+          <NavigationProperty Name="CalRecords" Relationship="Model.FK_Table_ToTable" FromRole="AspNetUser" ToRole="CalRecord" />
         </EntityType>
         <EntityType Name="Menu">
           <Key>
@@ -416,6 +443,11 @@
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="Review" EntitySet="Reviews" />
           </AssociationSet>
+          <EntitySet Name="CalRecords" EntityType="Model.CalRecord" />
+          <AssociationSet Name="FK_Table_ToTable" Association="Model.FK_Table_ToTable">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="CalRecord" EntitySet="CalRecords" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_Review_ToTable_1">
           <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
@@ -426,6 +458,28 @@
             </Principal>
             <Dependent Role="Review">
               <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CalRecord">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Calories" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Model.FK_Table_ToTable" FromRole="CalRecord" ToRole="AspNetUser" />
+        </EntityType>
+        <Association Name="FK_Table_ToTable">
+          <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="Model.CalRecord" Role="CalRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CalRecord">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -531,6 +585,16 @@
               <ScalarProperty Name="Id" ColumnName="Id" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="CalRecords">
+            <EntityTypeMapping TypeName="Model.CalRecord">
+              <MappingFragment StoreEntitySet="CalRecord">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Calories" ColumnName="Calories" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

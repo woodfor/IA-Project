@@ -72,7 +72,7 @@ namespace IAproject.Controllers
 
         public ActionResult BackToLisk()
         {
-            return Redirect(Request.UrlReferrer.ToString());
+            return RedirectToAction("ReturnSuggest", "SeeMenu");
 
         }
 

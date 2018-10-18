@@ -32,5 +32,6 @@ namespace IAproject.Models
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Menu> Menus { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
+        public virtual DbSet<CalRecord> CalRecords { get; set; }
     }
 }

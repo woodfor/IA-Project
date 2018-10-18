@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using IAproject.Models;
+using System.Collections;
+using System.Web.Helpers;
 
 namespace IAproject.Controllers
 {
@@ -73,8 +75,11 @@ namespace IAproject.Controllers
             using (MenuNewestEntities db = new MenuNewestEntities())
             {
                 name = db.AspNetUsers.Find(userId).UserName;
-                date = db.AspNetUsers.Find(userId).Birthday.ToString();                
+                date = db.AspNetUsers.Find(userId).Birthday.ToString();
+               
 
+                //ViewData["DateCollection"] = db.CalRecords.Where(x => x.UserId.Equals(userId)).OrderByDescending(x => x.CreateDate).Select(e => e.CreateDate).Take(5).ToList();
+                //ViewData["CalCollection"] = db.CalRecords.Where(x => x.UserId.Equals(userId)).OrderByDescending(x => x.CreateDate).Select(e => e.CreateDate).Take(5).ToList();
             }
             ViewBag.name = name;
             ViewBag.date = date;
@@ -90,7 +95,22 @@ namespace IAproject.Controllers
             };
             return View(model);
         }
-
+        public ActionResult CharterColumn()
+        {
+            string userid = User.Identity.GetUserId();
+            using (MenuNewestEntities db = new MenuNewestEntities())
+            {
+                ArrayList xValue = new ArrayList();
+                ArrayList yValue = new ArrayList();
+                var results = (from c in db.CalRecords where c.UserId.Equals(userid) orderby c.CreateDate descending select c).Take(5);
+                results.ToList().ForEach(rs => xValue.Add(rs.CreateDate));
+                results.ToList().ForEach(rs => yValue.Add(rs.Calories));
+                new Chart(width: 600, height: 600, theme: ChartTheme.Blue).AddTitle("Calories record")
+                    .AddSeries("Default", chartType: "Column", xValue: xValue, yValues: yValue)
+                    .Write("bmp");
+            }
+            return null;
+        }
         //
         // POST: /Manage/RemoveLogin
         [HttpPost]

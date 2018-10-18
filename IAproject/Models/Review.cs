@@ -16,13 +16,13 @@ namespace IAproject.Models
 
     public partial class Review
     {
+        
         public int ReviewNum { get; set; }
-        [Required]
         [AllowHtml]
+        [Required]
         public string ReviewText { get; set; }
         public decimal Stars { get; set; }
         public int MenuID { get; set; }
-        [Required]
         public string Id { get; set; }
         public string Username { get; set; }
     

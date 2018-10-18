@@ -228,6 +228,9 @@
     <Compile Include="Models\AspNetUserLogin.cs">
       <DependentUpon>NewestModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CalRecord.cs">
+      <DependentUpon>NewestModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\C__MigrationHistory.cs">
       <DependentUpon>NewestModel.tt</DependentUpon>
     </Compile>
@@ -637,7 +640,6 @@
     <Content Include="Views\Reviews\Details.cshtml" />
     <Content Include="Views\Reviews\Edit.cshtml" />
     <Content Include="Views\Reviews\Index.cshtml" />
-    <Content Include="Views\AspNetUsers\Create.cshtml" />
     <Content Include="Views\AspNetUsers\Delete.cshtml" />
     <Content Include="Views\AspNetUsers\Index.cshtml" />
     <Content Include="Views\Reviews\AddFavourite.cshtml" />

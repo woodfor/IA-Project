@@ -22,6 +22,7 @@ namespace IAproject.Models
             this.AspNetRoles = new HashSet<AspNetRole>();
             this.Menus = new HashSet<Menu>();
             this.Reviews = new HashSet<Review>();
+            this.CalRecords = new HashSet<CalRecord>();
         }
     
         public string Id { get; set; }
@@ -49,5 +50,7 @@ namespace IAproject.Models
         public virtual ICollection<Menu> Menus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CalRecord> CalRecords { get; set; }
     }
 }

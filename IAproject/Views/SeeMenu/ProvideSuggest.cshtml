@@ -39,8 +39,8 @@
 
                     </td>
                 </tr>
-                }
             }
+        }
 
     </tbody>
 </table>
@@ -50,11 +50,15 @@
 </h2>
 <h2>@Html.ActionLink("Upload", "Create")</h2>
 
-@if (ViewBag.authenticated != null)
+@if (ViewBag.AddToRecord != null)
 {
     <script type="text/javascript">
-            window.onload = function () {
-                alert("@ViewBag.authenticated ");
+        window.onload = function () {
+            if (confirm("Add Calorie " + @ViewBag.AddToRecord + " to your record")) {
+                window.location.href ='@Url.Action("Addrecord", "SeeMenu")/'
+            } else {
+                txt = "You pressed Cancel!";
             }
+        };
     </script>
 }
