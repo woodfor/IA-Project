@@ -130,7 +130,15 @@ namespace IAproject.Controllers
         // GET: SeeMenu/Create
         public ActionResult Create()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login","Account");
+            }
+            
         }
 
         // POST: SeeMenu/Create
