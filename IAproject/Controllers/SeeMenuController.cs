@@ -88,9 +88,10 @@ namespace IAproject.Controllers
         }
         public ActionResult Addrecord([Bind(Include = "Id,Carlories,UserID,CreateDate")] CalRecord cal)
         {
+            string userid = User.Identity.GetUserId();
             List<CalRecord> calRecords = new List<CalRecord>();
-            calRecords=db.CalRecords.Where(x => x.CreateDate.Equals(System.DateTime.Today)).ToList();
-            if(calRecords!=null)
+            calRecords=db.CalRecords.Where(x =>x.UserId.Equals(userid) && x.CreateDate.Equals(System.DateTime.Today)).ToList();
+            if(calRecords.Count!=0)
             {
                 foreach (var rec in calRecords)
                 {
