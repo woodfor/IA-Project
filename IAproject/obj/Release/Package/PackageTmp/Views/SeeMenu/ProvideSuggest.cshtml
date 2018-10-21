@@ -1,0 +1,64 @@
+﻿@model IEnumerable<IAproject.Models.Menu>
+
+@{
+    ViewBag.Title = "Suggest Menu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Suggest Menu</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Menu name</th>
+            <th>Menu Photo</th>
+            <th>Calorie</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="3" style="color:red">
+                    No Mach Any Menus
+                </td>
+            </tr>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td> <img class="img-thumbnail" src='@Url.Content("~/Uploads/" + item.MenuPhoto)' /> </td>
+                    <td>@item.Carlorie</td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", new { id = item.MenuID })
+
+
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
+
+<h2>
+    Not satisfield? upload your menu!
+</h2>
+<h2>@Html.ActionLink("Upload", "Create")</h2>
+
+@if (ViewBag.AddToRecord != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            if (confirm("Add Calorie " + @ViewBag.AddToRecord + " to your record")) {
+                window.location.href ='@Url.Action("Addrecord", "SeeMenu")/'
+            } else {
+                txt = "You pressed Cancel!";
+            }
+        };
+    </script>
+}

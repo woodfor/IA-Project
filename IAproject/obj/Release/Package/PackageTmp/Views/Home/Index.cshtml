@@ -1,0 +1,141 @@
+﻿@using IAproject.Models
+@model Calculation
+
+@{
+    /**/
+
+    ViewBag.Title = "Home Page";
+}
+
+<head>
+    <style>
+        .Due {
+            text-align: center
+        }
+
+        .jumbotron {
+            text-align: center
+        }
+
+        .form-horizontal {
+            text-align: left
+        }
+    </style>
+</head>
+
+
+<div>
+    <img srcset="
+             /Image/due320 480w,
+             /Image/due640.jpg 650w,
+              /Image/due640.jpg 800w"
+         sizes="(max-width: 320px) 280px,
+            (max-width: 650px) 440px,
+         (max-width: 600px) 800ppx
+            "
+         src="/Image/due640.jpg" alt="Elva dressed as a fairy" style="width:auto;">
+
+
+</div>
+<hr />
+<h2> Calculate your calories </h2>
+<br />
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+
+    @Html.AntiForgeryToken()
+
+    <form class="form-horizontal" action="/action_page.php">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.LabelFor(model => model.PersonalGender, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.DropDownListFor(model => model.PersonalGender, new SelectList(Enum.GetValues(typeof(Gender))), "Select Gender")
+                @Html.ValidationMessageFor(model => model.PersonalGender, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.LabelFor(model => model.Weight, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.Weight, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.LabelFor(model => model.Height, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.Height, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Height, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.LabelFor(model => model.Activity, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.DropDownListFor(model => model.Activity, new SelectList(Enum.GetValues(typeof(Activity))), "Select Activity")
+                @Html.ValidationMessageFor(model => model.Activity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Calculation" class="btn btn-default" />
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <hr />
+                <ul>
+                    @foreach (var cal in ViewData["Calculation"] as IList<string>)
+                    {
+                        <li>
+                            @cal
+                        </li>
+                    }
+                </ul>
+            </div>
+
+        </div>
+
+    </form>
+}
+
+@using (Html.BeginForm("ProvideSuggest", "SeeMenu", FormMethod.Post))
+{
+
+    <div class="col-md-10">
+        <h2>Type in the colaries and see the suggested menu.</h2>
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.LabelFor(model => model.CalResult, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.CalResult, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CalResult, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-offset-2 col-md-10">
+        <button type="submit" class="btn btn-default" id="turnpage">See your suggest menu !</button>
+    </div>
+
+}
+
+
+  

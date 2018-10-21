@@ -1,0 +1,44 @@
+﻿@model IEnumerable<IAproject.Models.AspNetUser>
+@{
+    ViewBag.Title = "ManageUsers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ManageUsers</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>User name</th>
+            <th>Birthday</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="3" style="color:red">
+                    No Mach Any Menus
+                </td>
+            </tr>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.UserName</td>                   
+                    <td>@item.Birthday</td>
+                    <td>
+                        @Html.ActionLink("Delete", "DeleteUsers", new { id = item.Id })
+
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
+<div>
+    @Html.ActionLink("Back to List", "AdminPage")
+</div>

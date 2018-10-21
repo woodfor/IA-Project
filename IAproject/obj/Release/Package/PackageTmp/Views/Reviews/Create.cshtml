@@ -1,0 +1,165 @@
+﻿@model IEnumerable<IAproject.Models.Review>
+
+@using System.Linq;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+
+
+<h4>Menu</h4>
+<hr />
+<ul>
+
+    @foreach (var cal in ViewData["menuview"] as List<string>)
+    {
+        <li>
+            <h3>@cal</h3>
+        </li>
+    }
+</ul>
+
+<img class="img-thumbnail" src='@Url.Content(ViewBag.viewphoto)' />
+<div>
+    @if (ViewBag.containmenu != null)
+    {
+        <h4>You have added it to favourite. @Html.ActionLink("Delete?", "DeleteMenu", "Reviews")</h4>
+    }
+    else
+    {
+        <h3>@Html.ActionLink("Add to favourite", "AddFavourite", "Reviews")</h3>
+    }
+
+</div>
+
+<div>
+<h3>@Html.ActionLink("Back to list", "BackToLisk")</h3>
+    </div>
+
+<hr />
+<div>
+    <h2>Several reviews of this menu</h2>
+    <ul class="list-group">
+
+        @foreach (var item in Model)
+        {
+            if (item.Username == null)
+            {
+                <li>Someone says: @Html.Raw(item.ReviewText)</li>
+            }
+            else
+            {
+                <li>@item.Username says: @Html.Raw(item.ReviewText)</li>
+            }
+
+
+        }
+
+    </ul>
+
+</div>
+
+@*<div>
+    <h2>Some real times reviews: </h2>
+    <ul id="discussion" class="list-group"></ul>
+</div>*@
+
+<hr />
+<div>
+
+    @if (TempData["YourReview"] != null)
+    {
+        <h3>
+            Your last review
+        </h3>
+        <h4>you said:</h4>
+        <br />
+        <h4>"@Html.Raw(TempData["YourReview"])"</h4>
+    }
+
+</div>
+
+
+<hr />
+
+<h2>Write something about the menu</h2>
+
+@using (Html.BeginForm("AddReview", "Reviews", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.LabelFor(model => model.First().ReviewText, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.FirstOrDefault().ReviewText, new { htmlAttributes = new { @class = "form-control", @id = "mytextarea" } })
+                @Html.ValidationMessageFor(model => model.First().ReviewText, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-default" id="sendmessage">Sumbit</button>
+            </div>
+        </div>
+    </div>
+}
+
+    
+
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery.signalR-2.3.0.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script>
+        $(function () {
+            // Reference the auto-generated proxy for the hub.
+            var toDo = $.connection.toDoHub;
+            // Create a function that the hub can call back to display messages.
+            toDo.client.addNewMessageToPage = function (message) {
+                // Add the message to the page.
+
+
+                $('#discussion').append("<li class='list-group-item'><strong>" + htmlEncode(message) + '</li>');
+            };
+            // Start the connection.
+            $.connection.hub.start().done(function () {
+                $('#sendmessage').click(function () {
+
+                    var message = $('#mytextarea').val();
+                    if (message.length == 0)
+                        return;
+                    // Call the Send method on the hub.
+                    toDo.server.send($('#mytextarea').val());
+                    // Clear text box and reset focus for next comment.
+                    $('#mytextarea').val('');
+                });
+            });
+        });
+        // This optional function html-encodes messages for display in the page.
+        function htmlEncode(value) {
+            var encodedValue = $('<div />').text(value).html();
+            return encodedValue;
+        }
+    </script>
+
+    <script>
+
+        $(function () {
+            tinymce.init({
+                selector: '#mytextarea'
+            });
+        });
+
+    </script>
+
+}
+

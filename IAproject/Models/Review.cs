@@ -16,7 +16,6 @@ namespace IAproject.Models
 
     public partial class Review
     {
-        
         public int ReviewNum { get; set; }
         [AllowHtml]
         [Required]
