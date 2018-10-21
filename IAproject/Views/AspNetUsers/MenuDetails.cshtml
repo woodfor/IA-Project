@@ -4,7 +4,7 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@*Menu details including review*@
 <h2>Details</h2>
 
 <div>
@@ -63,24 +63,24 @@
 
     @foreach (var item in Model.Reviews)
     {
-    <tr>
+        <tr>
 
-        @if (item.Username == null)
-        {
-            <td>
-                Someone says: @Html.Raw(item.ReviewText)
-            </td>
-        }
-        else
-        {
-            <td>
-                @item.Username says: @Html.Raw(item.ReviewText)
-            </td>
-        }
+            @if (item.Username == null)
+            {
+                <td>
+                    Someone says: @Html.Raw(item.ReviewText)
+                </td>
+            }
+            else
+            {
+                <td>
+                    @item.Username says: @Html.Raw(item.ReviewText)
+                </td>
+            }
 
             <td>
-              
-                @Html.ActionLink("Delete Review", "DeleteReview", new { id = item.ReviewNum})
+
+                @Html.ActionLink("Delete Review", "DeleteReview", new { id = item.ReviewNum })
             </td>
 
         </tr>

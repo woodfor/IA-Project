@@ -43,6 +43,7 @@ namespace IAproject.Controllers
         }
 
         // POST: Menus/Create
+        // Upload menus
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -57,7 +58,7 @@ namespace IAproject.Controllers
             if (ModelState.IsValid)
             {
                 string serverPath = Server.MapPath("~/Uploads/");
-                string fileExtension = Path.GetExtension(postedFile.FileName);
+                string fileExtension = Path.GetExtension(postedFile.FileName);//Upload menus, record path in database
                 string filePath = menu.MenuPhoto + fileExtension;
                 menu.MenuPhoto = filePath;
                 postedFile.SaveAs(serverPath + menu.MenuPhoto);
@@ -85,6 +86,7 @@ namespace IAproject.Controllers
         }
 
         // POST: Menus/Edit/5
+        // Edit menus
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -127,6 +129,7 @@ namespace IAproject.Controllers
         }
 
         // POST: Menus/Delete/5
+        // delete menus, also delete reference
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int? id)

@@ -4,7 +4,7 @@
     ViewBag.Title = "Suggest Menu";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@*Show suggested menus*@
 <h2>Suggest Menu</h2>
 
 
@@ -50,6 +50,8 @@
 </h2>
 <h2>@Html.ActionLink("Upload", "Create")</h2>
 
+
+@*Waring message whether to add record*@
 @if (ViewBag.AddToRecord != null)
 {
     <script type="text/javascript">

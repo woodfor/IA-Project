@@ -72,7 +72,7 @@ namespace IAproject.Controllers
             }
             string name;
             string date;
-            using (MenuNewestEntities db = new MenuNewestEntities())
+            using (MenuNewestEntities db = new MenuNewestEntities()) //Show birthday of each user
             {
                 name = db.AspNetUsers.Find(userId).UserName;
                 date = db.AspNetUsers.Find(userId).Birthday.ToString();
@@ -95,7 +95,7 @@ namespace IAproject.Controllers
             };
             return View(model);
         }
-        public ActionResult CharterColumn()
+        public ActionResult CharterColumn() // form calorie record into column chart.
         {
             string userid = User.Identity.GetUserId();
             using (MenuNewestEntities db = new MenuNewestEntities())

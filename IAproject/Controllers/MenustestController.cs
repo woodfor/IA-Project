@@ -12,6 +12,7 @@ namespace IAproject.Controllers
 {
     public class MenustestController : Controller
     {
+        // THis controller provides Coding tmplate. It has not actual functions.
         private MenuNewestEntities db = new MenuNewestEntities();
 
         // GET: Menustest

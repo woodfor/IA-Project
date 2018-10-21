@@ -38,7 +38,7 @@ namespace IAproject.Controllers
             }
             return View(review);
         }
-
+        // Create review to specific menu
         public ActionResult Create(Menu menu)
         {
             menutmp = menu;
@@ -76,17 +76,12 @@ namespace IAproject.Controllers
 
         }
 
+        //Add menu to favourite
         public ActionResult AddFavourite()
         {
             if (User.Identity.IsAuthenticated)
             {
-                //foreach (var item in db.AspNetUsers.Find(User.Identity.GetUserId()).Menus)
-
-                //{
-                //    if (item.MenuID == menutmp.MenuID)
-                //        return Content(" <script type='text / javascript'>window.onload = function () {alert( ' Please login to see your suggested menu.' ); } </script> ");
-
-                //}
+                
 
                
                 return RedirectToAction("AddFavourite", "AspNetUsers", menutmp);
@@ -100,8 +95,8 @@ namespace IAproject.Controllers
             
         }
 
-       //Response.Redirect(Request.UrlReferrer.ToString());
-
+       
+       //Add review
         public ActionResult AddReview([Bind(Include = "ReviewText")] Review review)
         {
             //Menu menu = ViewBag.Menu;                       
@@ -168,6 +163,7 @@ namespace IAproject.Controllers
             }
             return View(review);
         }
+        //Delete Menu
         public ActionResult DeleteMenu()
         {
             

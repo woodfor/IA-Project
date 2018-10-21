@@ -647,7 +647,6 @@
     <Content Include="Views\Reviews\Index.cshtml" />
     <Content Include="Views\AspNetUsers\Delete.cshtml" />
     <Content Include="Views\AspNetUsers\Index.cshtml" />
-    <Content Include="Views\Reviews\AddFavourite.cshtml" />
     <Content Include="Views\AspNetUsers\AdminPage.cshtml" />
     <Content Include="Views\AspNetUsers\ManageMenus.cshtml" />
     <Content Include="Views\AspNetUsers\ManageUsers.cshtml" />

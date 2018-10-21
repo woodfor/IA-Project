@@ -18,6 +18,9 @@ namespace IAproject.Controllers
         private static decimal tmpcal;
         
         private MenuNewestEntities db = new MenuNewestEntities();
+
+        // Search database to find suggested menu
+        // Code Source: https://msdn.microsoft.com/en-us/library/bb308959.aspx
         public ActionResult ProvideSuggest([Bind(Include = "CalResult")] Calculation cal)
         {
             List<Menu> menulist = new List<Menu>();
@@ -54,23 +57,11 @@ namespace IAproject.Controllers
                     return View(menulist);
                 }
             }
-        //else
-        //{
-        //    //ViewBag.authenticated = "Alert";
-        //    //System.Web.HttpContext.Current.Response.Write("<SCRIPT LANGUAGE=""JavaScript"">alert("Hello this is an Alert")</SCRIPT>");
-        //    // Response.Write("Please login to see your suggested menu");
-        //    // Response.Write("<script>alert('Please login to see your suggested menu ')</script>");
-        //   // Response.Write(" <script type='text / javascript'>window.onload = function () {alert( ' Please login to see your suggested menu.' ); } </script> ");
-        //    return RedirectToAction("Login", "Account", routeValues: null);
-        //}
-        
+    
+        // Show suggested menu    
         public ActionResult ReturnSuggest()
         {
             List<Menu> menulist = new List<Menu>();
-            //if (User.Identity.IsAuthenticated)
-            //{
-
-            
 
                 try
                 {
@@ -86,6 +77,8 @@ namespace IAproject.Controllers
                 return View("ProvideSuggest",menulist);
           
         }
+
+        // User intends to add calorie to record. Action below interacts with database.
         public ActionResult Addrecord([Bind(Include = "Id,Carlories,UserID,CreateDate")] CalRecord cal)
         {
             string userid = User.Identity.GetUserId();
@@ -157,6 +150,7 @@ namespace IAproject.Controllers
         }
 
         // POST: SeeMenu/Create
+        // User upload menu.
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]

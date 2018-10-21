@@ -3,14 +3,14 @@
     ViewBag.Title = "ManageUsers";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@*Show the list of users*@
 <h2>ManageUsers</h2>
 <table class="table">
     <thead>
         <tr>
             <th>User name</th>
             <th>Birthday</th>
-            
+
         </tr>
     </thead>
     <tbody>
@@ -18,7 +18,7 @@
         {
             <tr>
                 <td colspan="3" style="color:red">
-                    No Mach Any Menus
+                    No Any Users
                 </td>
             </tr>
         }
@@ -27,7 +27,7 @@
             foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.UserName</td>                   
+                    <td>@item.UserName</td>
                     <td>@item.Birthday</td>
                     <td>
                         @Html.ActionLink("Delete", "DeleteUsers", new { id = item.Id })

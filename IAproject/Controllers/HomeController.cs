@@ -25,7 +25,7 @@ namespace IAproject.Controllers
                 {
                     BMR = 10 * cal.Weight + 6.25 * cal.Height - 5 * cal.Age - 161;
                 }
-                if (cal.Activity == Activity.BMR)
+                if (cal.Activity == Activity.BMR) // Show the calculation result.
                 {
                     calorie.Add("you need" + BMR + "Calories/day to maintain your weight.");
                     calorie.Add("you need" + (BMR - 500) + "Calories/day to lose 0.5 kg per week.");
